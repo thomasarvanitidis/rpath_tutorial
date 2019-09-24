@@ -2,7 +2,7 @@
 // URL:    https://github.com/tarvanitidis/rpath_tutorial
 
 #include <iostream>
-#include "fastmatrix_api.h"
+#include "fastmatrix/fastmatrix_api.h"
 #include "mymaths_api.h"
 
 namespace mymaths

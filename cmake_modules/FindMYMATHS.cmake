@@ -2,14 +2,16 @@
 # URL:    https://github.com/tarvanitidis/rpath_tutorial
 
 find_path(MYMATHS_INCLUDE_DIR
-    NAMES mymaths_api.h
+    NAMES mymaths/mymaths_api.h
     PATHS ${MYMATHS_ROOT}
+    PATH_SUFFIXES include
     NO_DEFAULT_PATH
 )
 
 find_library(MYMATHS_LIBRARY
     NAMES mymaths
     PATHS ${MYMATHS_ROOT}
+    PATH_SUFFIXES lib
     NO_DEFAULT_PATH
 )
 
