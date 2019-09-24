@@ -8,7 +8,8 @@ This is an attempt to reproduce a realistic example of a complex system where th
 * libmymaths    -  High-level implementation of maths routines, implementing fastmatrix's efficient routines.
 * simpleapp     -  Programme that links to libmymaths and indirectly uses libfastmatrix's routines.
 
-## How To Build
+## How To Use
 
-* ` ./run.sh ` .
-* ` cd ` in each directory and simply ` cmake . && make ` .
+* ` pip install conan==1.13.0 ` . Ensure conan is installed in your environment.
+* ` ./run.sh ` . Builds all software.
+* ` ./cleanup.sh ` . Remove built and cached software.

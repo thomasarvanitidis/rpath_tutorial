@@ -1,3 +1,4 @@
+import os
 from conans import ConanFile, CMake
 
 
@@ -16,7 +17,7 @@ class SimpleAppConan(ConanFile):
     exports_sources = "*"
 
     def requirements(self):
-        self.requires.add("mymaths/0.1@thomas/develop")
+        self.requires.add("mymaths/0.1@testuser/develop")
 
     def build(self):
         cmake = CMake(self)
@@ -26,6 +27,15 @@ class SimpleAppConan(ConanFile):
 
     def package(self):
         self.copy("*", dst="bin", keep_path=False)
+
+        # Locate the executable and inform the user.
+        executable = os.path.join(self.package_folder, "bin", "simpleapp")
+        decor = '#' * 80
+        print(decor)
+        print('\n' * 2)
+        print('Executable location: {}'.format(executable))
+        print('\n' * 2)
+        print(decor)
 
     def package_info(self):
         self.cpp_info.libs = ["simpleapp"]

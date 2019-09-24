@@ -16,7 +16,7 @@ class MyMathsConan(ConanFile):
     exports_sources = "*"
 
     def requirements(self):
-        self.requires.add("fastmatrix/0.1@thomas/develop")
+        self.requires.add("fastmatrix/0.1@testuser/develop")
 
     def build(self):
         cmake = CMake(self)

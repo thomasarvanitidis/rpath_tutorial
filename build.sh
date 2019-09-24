@@ -8,12 +8,11 @@ log_print () {
 
 # Build everything
 log_print "Building fastmatrix ..."
-cd libfastmatrix && cmake . && make && cd ..
+conan create libfastmatrix testuser/develop -o verbose=True
 log_print "Building mymaths ..."
-cd libmymaths    && cmake . && make && cd ..
+conan create libmymaths testuser/develop -o verbose=True
 log_print "Building simpleapp ..."
-cd simpleapp     && cmake . && make && cd ..
+conan create simpleapp testuser/develop -o verbose=True
 
 # Invoke programme
-log_print "Run simpleapp"
-./simpleapp/simpleapp
+log_print "Copy the path to executable location and invoke."
