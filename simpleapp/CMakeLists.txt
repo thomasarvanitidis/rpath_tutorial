@@ -43,7 +43,14 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
     CXX_EXTENSIONS FALSE
 
     BUILD_WITH_INSTALL_RPATH TRUE
+    # Desired result, libfastmatrix agnostic
     INSTALL_RPATH "${TOKEN}/../libmymaths"
+
+    # # Fix 1, -rpath-link (linux-specific ld option)
+    # LINK_FLAGS "-Wl,-rpath-link,${CMAKE_CURRENT_SOURCE_DIR}/../libfastmatrix/"
+
+    # # Fix 2, additional (unecessary for macOS) rpath, overwrites line 47
+    # INSTALL_RPATH "${TOKEN}/../libmymaths;${CMAKE_CURRENT_SOURCE_DIR}/../libfastmatrix"
 )
 
 #############################################################

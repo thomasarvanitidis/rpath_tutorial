@@ -10,4 +10,5 @@ This is an attempt to reproduce a realistic example of a complex system where th
 
 ## How To Build
 
-` cd ` in each directory and simply ` cmake . && make ` .
+* ` ./run.sh ` .
+* ` cd ` in each directory and simply ` cmake . && make ` .

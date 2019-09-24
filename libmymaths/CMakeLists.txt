@@ -35,8 +35,7 @@ add_library(${PROJECT_NAME} SHARED mymaths.cpp)
 if(APPLE)
     set(TOKEN "@loader_path")
 elseif(UNIX AND NOT APPLE)
-    # set(TOKEN "$ORIGIN")  # Haven't managed to make it work.
-    set(TOKEN ".")
+    set(TOKEN "$ORIGIN")
 endif()
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
