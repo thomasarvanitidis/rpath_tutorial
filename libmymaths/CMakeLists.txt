@@ -1,5 +1,5 @@
 #############################################################
-##   MYMATHS: Simple maths lib that depends on FASTMATRIX  ##
+##  MYMATHS: High-level maths lib depending on FASTMATRIX  ##
 #                                                           #
 # This is a simple example of how libraries should be built #
 # in order to                                               #
@@ -10,44 +10,35 @@
 # URL:    https://github.com/tarvanitidis/rpath_tutorial    #
 #                                                           #
 #############################################################
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.14)
 project(mymaths CXX)
-set(CMAKE_VERBOSE_MAKEFILE TRUE)
+
+include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+conan_basic_setup(TARGETS KEEP_RPATHS)
 
 #############################################################
-# Configuring
+# Compiling.
 #############################################################
-# Point to FindFASTMATRIX.cmake, used by find_package().
-set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../cmake_modules")
-
-set(FASTMATRIX_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/../libfastmatrix")
-
-# Populate FASTMATRIX_INCLUDE_DIR and FASTMATRIX_LIBRARY.
-find_package(FASTMATRIX REQUIRED)
-
-#############################################################
-# Building
-#############################################################
-include_directories("${FASTMATRIX_INCLUDE_DIR}")
-
 add_library(${PROJECT_NAME} SHARED mymaths.cpp)
 
-if(APPLE)
-    set(TOKEN "@loader_path")
-elseif(UNIX AND NOT APPLE)
-    set(TOKEN "$ORIGIN")
-endif()
+target_include_directories(${PROJECT_NAME} PUBLIC
+    ${CONAN_INCLUDE_DIRS_FASTMATRIX}
+)
+
+target_link_directories(${PROJECT_NAME} PRIVATE
+    ${CONAN_LIB_DIRS_FASTMATRIX}
+)
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
     CXX_STANDARD 11
     CXX_EXTENSIONS FALSE
 
-    BUILD_WITH_INSTALL_RPATH TRUE
-    INSTALL_NAME_DIR "@rpath"  # Necessary prior CMP0042 introduction.
-    INSTALL_RPATH "${TOKEN}/../libfastmatrix"
+    INSTALL_RPATH ${CONAN_LIB_DIRS_FASTMATRIX}
 )
 
 #############################################################
 # Linking
 #############################################################
-target_link_libraries(${PROJECT_NAME} ${FASTMATRIX_LIBRARY})
+target_link_libraries(${PROJECT_NAME}
+    ${CONAN_LIBS_FASTMATRIX}
+)

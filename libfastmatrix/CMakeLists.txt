@@ -10,19 +10,18 @@
 # URL:    https://github.com/tarvanitidis/rpath_tutorial    #
 #                                                           #
 #############################################################
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.14)
 project(fastmatrix CXX)
-set(CMAKE_VERBOSE_MAKEFILE TRUE)
+
+include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+conan_basic_setup(TARGETS)
 
 ############################################################
-# Building
+# Compiling.
 ############################################################
 add_library(${PROJECT_NAME} SHARED fastmatrix.cpp)
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
     CXX_STANDARD 11
     CXX_EXTENSIONS FALSE
-
-    BUILD_WITH_INSTALL_RPATH TRUE
-    INSTALL_NAME_DIR "@rpath"  # Necessary prior CMP0042 introduction.
 )

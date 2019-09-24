@@ -9,51 +9,35 @@
 # URL:    https://github.com/tarvanitidis/rpath_tutorial    #
 #                                                           #
 #############################################################
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.14)
 project(simpleapp CXX)
-set(CMAKE_VERBOSE_MAKEFILE TRUE)
 
-# ----------------------
-# Configuring
-# ----------------------
-# Point to FindMYMATHS.cmake, used by find_package().
-set(CMAKE_MODULE_PATH  "${CMAKE_CURRENT_SOURCE_DIR}/../cmake_modules")
-
-# Provide MYMATHS_ROOT, required in FindMYMATHS.cmake.
-set(MYMATHS_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/../libmymaths")
-
-# Populate MYMATHS_INCLUDE_DIR and MYMATHS_LIBRARY.
-find_package(MYMATHS REQUIRED)
+include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+conan_basic_setup(TARGETS KEEP_RPATHS)
 
 #############################################################
-# Building
+# Compiling.
 #############################################################
-include_directories(${MYMATHS_INCLUDE_DIR})
-
 add_executable(${PROJECT_NAME} simpleapp.cpp)
 
-if(APPLE)
-    set(TOKEN "@executable_path")
-elseif(UNIX AND NOT APPLE)
-    set(TOKEN "$ORIGIN")
-endif()
+target_include_directories(${PROJECT_NAME} PRIVATE
+    ${CONAN_INCLUDE_DIRS_MYMATHS}
+)
+
+target_link_directories(${PROJECT_NAME} PRIVATE
+    ${CONAN_LIB_DIRS_MYMATHS}
+)
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
     CXX_STANDARD 11
     CXX_EXTENSIONS FALSE
 
-    BUILD_WITH_INSTALL_RPATH TRUE
-    # Desired result, libfastmatrix agnostic
-    INSTALL_RPATH "${TOKEN}/../libmymaths"
-
-    # # Fix 1, -rpath-link (linux-specific ld option)
-    # LINK_FLAGS "-Wl,-rpath-link,${CMAKE_CURRENT_SOURCE_DIR}/../libfastmatrix/"
-
-    # # Fix 2, additional (unecessary for macOS) rpath, overwrites line 47
-    # INSTALL_RPATH "${TOKEN}/../libmymaths;${CMAKE_CURRENT_SOURCE_DIR}/../libfastmatrix"
+    INSTALL_RPATH ${CONAN_LIB_DIRS_MYMATHS}
 )
 
 #############################################################
 # Linking
 #############################################################
-target_link_libraries(${PROJECT_NAME} ${MYMATHS_LIBRARY})
+target_link_libraries(${PROJECT_NAME}
+    ${CONAN_LIBS_MYMATHS}
+)
