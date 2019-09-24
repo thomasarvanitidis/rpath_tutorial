@@ -32,7 +32,7 @@ include_directories("${FASTMATRIX_INCLUDE_DIR}")
 
 add_library(${PROJECT_NAME} SHARED
     mymaths.cpp
-    mymaths.h
+    mymaths_api.h
 )
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
@@ -42,7 +42,7 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
     FRAMEWORK TRUE
     FRAMEWORK_VERSION A
     MACOSX_FRAMEWORK_IDENTIFIER com.music.mymaths
-    PUBLIC_HEADER mymaths.h
+    PUBLIC_HEADER mymaths_api.h
 
     BUILD_WITH_INSTALL_RPATH TRUE
     INSTALL_NAME_DIR "@rpath"  # Necessary prior CMP0042 introduction.

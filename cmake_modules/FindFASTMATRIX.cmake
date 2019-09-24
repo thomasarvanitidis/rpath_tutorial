@@ -2,7 +2,7 @@
 # URL:    https://github.com/tarvanitidis/rpath_tutorial
 
 find_path(FASTMATRIX_INCLUDE_DIR
-    NAMES fastmatrix.h
+    NAMES fastmatrix_api.h
     PATHS ${FASTMATRIX_ROOT}
     NO_DEFAULT_PATH
 )

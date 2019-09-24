@@ -2,7 +2,7 @@
 # URL:    https://github.com/tarvanitidis/rpath_tutorial
 
 find_path(MYMATHS_INCLUDE_DIR
-    NAMES mymaths.h
+    NAMES mymaths_api.h
     PATHS ${MYMATHS_ROOT}
     NO_DEFAULT_PATH
 )

@@ -3,7 +3,7 @@
 
 #include <vector>
 #include <iostream>
-#include "mymaths.h"
+#include "mymaths/mymaths_api.h"
 
 int main() {
     mymaths::yo();
