@@ -8,12 +8,12 @@ log_print () {
 
 # Build everything
 log_print "Building fastmatrix ..."
-cd libfastmatrix && cmake . && make && cd ..
+cd libfastmatrix && mkdir -p build && cd build && cmake .. && make && cd ../..
 log_print "Building mymaths ..."
-cd libmymaths    && cmake . && make && cd ..
+cd libmymaths    && mkdir -p build && cd build && cmake .. && make && cd ../..
 log_print "Building simpleapp ..."
-cd simpleapp     && cmake . && make && cd ..
+cd simpleapp     && mkdir -p build && cd build && cmake .. && make && cd ../..
 
 # Invoke programme
 log_print "Run simpleapp"
-./simpleapp/simpleapp
+./simpleapp/build/simpleapp

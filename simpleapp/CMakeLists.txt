@@ -20,7 +20,7 @@ set(CMAKE_VERBOSE_MAKEFILE TRUE)
 set(CMAKE_MODULE_PATH  "${CMAKE_CURRENT_SOURCE_DIR}/../cmake_modules")
 
 # Provide MYMATHS_ROOT, required in FindMYMATHS.cmake.
-set(MYMATHS_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/../libmymaths")
+set(MYMATHS_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/../libmymaths/build")
 
 # Populate MYMATHS_INCLUDE_DIR and MYMATHS_LIBRARY.
 find_package(MYMATHS REQUIRED)
@@ -38,7 +38,7 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
 
     BUILD_WITH_INSTALL_RPATH TRUE
     # Desired result, libfastmatrix agnostic
-    INSTALL_RPATH "@executable_path/../libmymaths"
+    INSTALL_RPATH "@executable_path/../../libmymaths/build"
 
     # # # Fix 1, -rpath-link (linux-specific ld option)
     # LINK_FLAGS "-Wl,-rpath-link,${CMAKE_CURRENT_SOURCE_DIR}/../libfastmatrix/"

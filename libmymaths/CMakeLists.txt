@@ -20,7 +20,7 @@ set(CMAKE_VERBOSE_MAKEFILE TRUE)
 # Point to FindFASTMATRIX.cmake, used by find_package().
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../cmake_modules")
 
-set(FASTMATRIX_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/../libfastmatrix")
+set(FASTMATRIX_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/../libfastmatrix/build")
 
 # Populate FASTMATRIX_INCLUDE_DIR and FASTMATRIX_LIBRARY.
 find_package(FASTMATRIX REQUIRED)
@@ -48,7 +48,7 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
     INSTALL_NAME_DIR "@rpath"  # Necessary prior CMP0042 introduction.
     # The following path is so complex because the fastmatrix binary in the
     # framework is stored under fastmatrix.framework/Version/A/
-    INSTALL_RPATH "@loader_path/../../../../libfastmatrix"
+    INSTALL_RPATH "@loader_path/../../../../../libfastmatrix/build"
 )
 
 #############################################################
