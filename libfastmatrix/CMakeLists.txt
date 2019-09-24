@@ -17,11 +17,19 @@ set(CMAKE_VERBOSE_MAKEFILE TRUE)
 ############################################################
 # Building
 ############################################################
-add_library(${PROJECT_NAME} SHARED fastmatrix.cpp)
+add_library(${PROJECT_NAME} SHARED
+    fastmatrix.cpp
+    fastmatrix.h
+)
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
     CXX_STANDARD 11
     CXX_EXTENSIONS FALSE
+
+    FRAMEWORK TRUE
+    FRAMEWORK_VERSION A
+    MACOSX_FRAMEWORK_IDENTIFIER com.music.fastmatrix
+    PUBLIC_HEADER fastmatrix.h
 
     BUILD_WITH_INSTALL_RPATH TRUE
     INSTALL_NAME_DIR "@rpath"  # Necessary prior CMP0042 introduction.

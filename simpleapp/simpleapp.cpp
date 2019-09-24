@@ -8,15 +8,15 @@
 int main() {
     mymaths::yo();
 
-    std::vector<double> a {1,2,3};
-    std::vector<double> b {1,1,1};
+    std::vector<double> a; a.push_back(1); a.push_back(2); a.push_back(3);
+    std::vector<double> b (3, 1);
 
-    auto result = mymaths::add(a, b);
+    std::vector<double> result = mymaths::add(a, b);
 
     std::cout << "Adding {1,2,3} and {1,1,1}.\n";
     std::cout << "Result:\n";
-    for (auto x:result) {
-        std::cout << x << std::endl;
+    for (int i = 0; i < result.size(); ++i) {
+        std::cout << result[i] << std::endl;
     }
 
     return 0;

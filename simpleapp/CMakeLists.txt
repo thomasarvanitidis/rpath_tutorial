@@ -32,25 +32,19 @@ include_directories(${MYMATHS_INCLUDE_DIR})
 
 add_executable(${PROJECT_NAME} simpleapp.cpp)
 
-if(APPLE)
-    set(TOKEN "@executable_path")
-elseif(UNIX AND NOT APPLE)
-    set(TOKEN "$ORIGIN")
-endif()
-
 set_target_properties(${PROJECT_NAME} PROPERTIES
     CXX_STANDARD 11
     CXX_EXTENSIONS FALSE
 
     BUILD_WITH_INSTALL_RPATH TRUE
     # Desired result, libfastmatrix agnostic
-    INSTALL_RPATH "${TOKEN}/../libmymaths"
+    INSTALL_RPATH "@executable_path/../libmymaths"
 
-    # # Fix 1, -rpath-link (linux-specific ld option)
+    # # # Fix 1, -rpath-link (linux-specific ld option)
     # LINK_FLAGS "-Wl,-rpath-link,${CMAKE_CURRENT_SOURCE_DIR}/../libfastmatrix/"
 
-    # # Fix 2, additional (unecessary for macOS) rpath, overwrites line 47
-    # INSTALL_RPATH "${TOKEN}/../libmymaths;${CMAKE_CURRENT_SOURCE_DIR}/../libfastmatrix"
+    # # # Fix 2, additional (unecessary for macOS) rpath, overwrites line 47
+    # # INSTALL_RPATH "${TOKEN}/../libmymaths;${CMAKE_CURRENT_SOURCE_DIR}/../libfastmatrix"
 )
 
 #############################################################

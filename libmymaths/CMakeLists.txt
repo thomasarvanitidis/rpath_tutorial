@@ -30,21 +30,25 @@ find_package(FASTMATRIX REQUIRED)
 #############################################################
 include_directories("${FASTMATRIX_INCLUDE_DIR}")
 
-add_library(${PROJECT_NAME} SHARED mymaths.cpp)
-
-if(APPLE)
-    set(TOKEN "@loader_path")
-elseif(UNIX AND NOT APPLE)
-    set(TOKEN "$ORIGIN")
-endif()
+add_library(${PROJECT_NAME} SHARED
+    mymaths.cpp
+    mymaths.h
+)
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
     CXX_STANDARD 11
     CXX_EXTENSIONS FALSE
 
+    FRAMEWORK TRUE
+    FRAMEWORK_VERSION A
+    MACOSX_FRAMEWORK_IDENTIFIER com.music.mymaths
+    PUBLIC_HEADER mymaths.h
+
     BUILD_WITH_INSTALL_RPATH TRUE
     INSTALL_NAME_DIR "@rpath"  # Necessary prior CMP0042 introduction.
-    INSTALL_RPATH "${TOKEN}/../libfastmatrix"
+    # The following path is so complex because the fastmatrix binary in the
+    # framework is stored under fastmatrix.framework/Version/A/
+    INSTALL_RPATH "@loader_path/../../../../libfastmatrix"
 )
 
 #############################################################
